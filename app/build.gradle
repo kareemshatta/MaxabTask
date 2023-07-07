@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.kareem.baseproject'
+    namespace 'com.kareem.maxabtask'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.kareem.baseproject"
+        applicationId "com.kareem.maxabtask"
         minSdk 21
         targetSdk 33
         versionCode 1
