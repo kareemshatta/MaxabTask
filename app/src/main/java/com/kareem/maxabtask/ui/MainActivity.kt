@@ -15,7 +15,9 @@ import com.kareem.maxabtask.R
 import com.kareem.maxabtask.ui.theme.MaxabTaskTheme
 import com.kareem.maxabtask.utils.AppNavigationActions
 import com.kareem.maxabtask.utils.SetupNavGraph
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
