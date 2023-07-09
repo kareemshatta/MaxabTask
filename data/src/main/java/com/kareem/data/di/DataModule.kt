@@ -2,6 +2,8 @@ package com.kareem.data.di
 
 import com.kareem.data.remote.ApiInterface
 import com.kareem.data.remote.NetworkInterceptor
+import com.kareem.data.repositories_imp.MoviesRepositoryImp
+import com.kareem.domain.repositories.MoviesRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,4 +43,8 @@ object DataModule {
     @Provides
     @Singleton
     fun provideNetworkInterceptor(@Named("ApiAccessToken") token: String) = NetworkInterceptor(token)
+
+    @Provides
+    @Singleton
+    fun provideMoviesRepository(service: ApiInterface): MoviesRepository = MoviesRepositoryImp(service)
 }
