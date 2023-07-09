@@ -12,5 +12,9 @@ class Dimen{
         const val dim_bottom_bar_height = 79
         const val dim_elevation = 2
         const val dim_bottom_radius = 16
+        const val dim_radius = 10
+        const val movie_image_width = 93
+        const val movie_image_height = 82
+        const val dim_top_bar_height = 74
     }
 }

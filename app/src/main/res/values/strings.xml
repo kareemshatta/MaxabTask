@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MaxabTask</string>
+    <string name="now_playing_movies_title">Now Playing Movies</string>
 </resources>
