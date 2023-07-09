@@ -1,7 +1,7 @@
 package com.kareem.data.di
 
 import com.kareem.data.remote.ApiInterface
-import com.kareem.data.utils.Constants.Companion.BASE_URL
+import com.kareem.data.remote.NetworkInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,6 +10,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -18,14 +19,15 @@ object DataModule {
 
     @Provides
     @Singleton
-    fun getRetrofitInstance(): Retrofit {
-        val logging = HttpLoggingInterceptor()
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+    fun provideRetrofitInstance(@Named("BaseUrl") baseUrl: String, networkInterceptor: NetworkInterceptor): Retrofit {
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
         val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor(logging)
+            .addInterceptor(loggingInterceptor)
+            .addInterceptor(networkInterceptor)
             .build()
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
@@ -33,6 +35,10 @@ object DataModule {
 
     @Provides
     @Singleton
-    fun getApiInterface(retrofit: Retrofit): ApiInterface =
+    fun provideApiInterface(retrofit: Retrofit): ApiInterface =
         retrofit.create(ApiInterface::class.java)
+
+    @Provides
+    @Singleton
+    fun provideNetworkInterceptor(@Named("ApiAccessToken") token: String) = NetworkInterceptor(token)
 }
